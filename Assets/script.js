@@ -12,7 +12,6 @@ var currentDayDiv = document.querySelector('.current');
 var extendedForcastDiv = document.querySelectorAll('.extended');
 // variable for assigining future forecats to a card
 var cardCount = 0;
-var searchInput = document.querySelector('#citySearchField');
 var submitEl = document.querySelector('#submit-location');
 var searchInput = document. querySelector("#location")
 // selects element where the searched cities will display
@@ -21,5 +20,16 @@ var searchedCities = document.querySelector('.searchedCities');
 var searchedCitiesEl = [];
 
 function handleSearch(event){
-    
+    var city = searchInput.value
+    getCurrentWeather(city)
+    searchInput.value = ""
 }
+
+function getCurrentWeather(city){
+    var apiUrlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${APIkey}&q=${city}&units=imperial`;
+    fetch(apiUrlWeather).then(res=> res.json()).then(data=>{
+    console.log(data)
+    })
+}
+// event listener 
+submitEl.addEventListener("click",handleSearch)
