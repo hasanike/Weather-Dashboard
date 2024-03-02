@@ -34,6 +34,7 @@ function getCurrentWeather(city) {
         var apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIkey}`;
         fetch(apiUrlForecast).then(res => res.json()).then(data => {
             console.log(data)
+        renderForecastData(data)
         })
     })
 }
@@ -52,6 +53,7 @@ function renderForecastData(data) {
     forecastel.innerHTML = ""
     // jumps the array. that checks time every 3 hours.
     for (let i=3; i<data.list.length;i+=8){
+        const card =document.createElement("div")
     const dateel=document.createElement("h3")
     dateel.textContent=dayjs.unix(data.list[i].dt).format("MM/DD/YYYY")
     const iconel=document.createElement("img")
@@ -62,7 +64,8 @@ function renderForecastData(data) {
     hum.textContent=data.list[i].main.humidity +" %"
     const wind =document.createElement("p")
     wind.textContent=data.list[i].wind.speed + " mph"
-    
+    card.append(dateel, iconel, tempel, hum, wind)
+    forecastel.append(card)
 }
     
 }
