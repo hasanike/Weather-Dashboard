@@ -37,8 +37,14 @@ function getCurrentWeather(city) {
         })
     })
 }
+// 
 function renderCurrentWeather(data){
-    
+    document.querySelector("#city-name").textContent = data.name
+    document.querySelector("#date").textContent = dayjs.unix(data.dt).format("MM/DD/YYYY")
+    document.querySelector("#icon").src = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+    document.querySelector("#temp").textContent = data.main.temp +" F"
+    document.querySelector("#hum").textContent = data.main.humidity +" %"
+    document.querySelector("#wind") .textContent = data.wind.speed +" mph"
 }
 // event listener 
 submitEl.addEventListener("click", handleSearch)
