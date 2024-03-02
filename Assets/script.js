@@ -46,5 +46,26 @@ function renderCurrentWeather(data){
     document.querySelector("#hum").textContent = data.main.humidity +" %"
     document.querySelector("#wind") .textContent = data.wind.speed +" mph"
 }
+// display cards
+function renderForecastData(data) {
+    const forecastel=document.querySelector("#forecast")
+    forecastel.innerHTML = ""
+    // jumps the array. that checks time every 3 hours.
+    for (let i=3; i<data.list.length;i+=8){
+    const dateel=document.createElement("h3")
+    dateel.textContent=dayjs.unix(data.list[i].dt).format("MM/DD/YYYY")
+    const iconel=document.createElement("img")
+    iconel.src=`https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`
+    const tempel = document.createElement("p")
+    tempel.textContent=data.list[i].main.temp+" F"  
+    const hum=document.createElement("p")
+    hum.textContent=data.list[i].main.humidity +" %"
+    const wind =document.createElement("p")
+    wind.textContent=data.list[i].wind.speed + " mph"
+    
+}
+    
+}
+
 // event listener 
 submitEl.addEventListener("click", handleSearch)
