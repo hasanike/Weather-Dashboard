@@ -13,23 +13,32 @@ var extendedForcastDiv = document.querySelectorAll('.extended');
 // variable for assigining future forecats to a card
 var cardCount = 0;
 var submitEl = document.querySelector('#submit-location');
-var searchInput = document. querySelector("#location")
+var searchInput = document.querySelector("#location")
 // selects element where the searched cities will display
 var searchedCities = document.querySelector('.searchedCities');
 // variable for saving to and writing from local storage
 var searchedCitiesEl = [];
 
-function handleSearch(event){
+function handleSearch(event) {
     var city = searchInput.value
     getCurrentWeather(city)
     searchInput.value = ""
 }
 
-function getCurrentWeather(city){
+function getCurrentWeather(city) {
     var apiUrlWeather = `https://api.openweathermap.org/data/2.5/weather?appid=${APIkey}&q=${city}&units=imperial`;
-    fetch(apiUrlWeather).then(res=> res.json()).then(data=>{
-    console.log(data)
+    fetch(apiUrlWeather).then(res => res.json()).then(data => {
+        console.log(data)
+        renderCurrentWeather(data)
+        const { lat, lon } = data.coord
+        var apiUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIkey}`;
+        fetch(apiUrlForecast).then(res => res.json()).then(data => {
+            console.log(data)
+        })
     })
 }
+function renderCurrentWeather(data){
+    
+}
 // event listener 
-submitEl.addEventListener("click",handleSearch)
+submitEl.addEventListener("click", handleSearch)
